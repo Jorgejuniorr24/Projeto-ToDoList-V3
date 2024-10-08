@@ -11,17 +11,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class ShoppingListComponent {
   items = [
-    { name: 'Apple', purchased: false },
-    { name: 'Milk', purchased: true },
+    { name: 'Maçã', purchased: false },
+    { name: 'Leite', purchased: true },
   ];
 
   newItem: string = ''; // Propriedade para armazenar o novo item
+  currentIndex: number | null = null; // Armazena o índice do item a ser editado
 
-  // Método para adicionar o item
+  // Método para adicionar ou editar o item
   addItem() {
     if (this.newItem.trim()) {
-      // Verifica se o novo item não está vazio
-      this.items.push({ name: this.newItem, purchased: false });
+      if (this.currentIndex !== null) {
+        // Edita o item existente
+        this.items[this.currentIndex].name = this.newItem;
+        this.currentIndex = null; // Reseta o índice após editar
+      } else {
+        // Adiciona um novo item
+        this.items.push({ name: this.newItem, purchased: false });
+      }
       this.newItem = ''; // Limpa o campo após adicionar
     }
   }
@@ -31,7 +38,8 @@ export class ShoppingListComponent {
   }
 
   editItem(index: number) {
-    // Adicione lógica de edição se necessário
+    this.currentIndex = index; // Armazena o índice do item a ser editado
+    this.newItem = this.items[index].name; // Preenche o campo de entrada com o nome do item
   }
 
   deleteItem(index: number) {

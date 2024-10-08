@@ -1,6 +1,2 @@
 <app-shopping-list></app-shopping-list>
 
-<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-  <input formControlName="itemName" placeholder="Digite um item">
-  <button type="submit" [disabled]="itemForm.invalid">Adicionar</button>
-</form>

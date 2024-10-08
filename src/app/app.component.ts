@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms'; // Certifique-se de importar corretamente
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ProjetoAngularProva';
+  itemForm: FormGroup;
+
+  constructor() {
+    this.itemForm = new FormGroup({
+      itemName: new FormControl('', [Validators.required])
+    });
+  }
+
+  onSubmit() {
+    console.log(this.itemForm.value);
+  }
 }
